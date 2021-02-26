@@ -1,0 +1,15 @@
+/* TEXT INPUT */
+
+.textInput {
+    min-height: var(--row-height);
+    width: 100%;
+    /* background: var(--primary-color); */
+    background: none;
+    color: white;
+    letter-spacing: 1px;
+}
+
+.textInput::placeholder {
+    color: var(--secondary-text);
+    /* font-size: .9rem; */
+}
