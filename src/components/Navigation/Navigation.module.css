@@ -111,7 +111,7 @@
 
 .logoutLink {
     margin-top: auto;
-    color: var(--highlight);
+    color: var(--secondary-text);
     font-size: 1.2rem;
 }
 

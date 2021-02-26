@@ -23,8 +23,8 @@ export default function usePageLayout(searchHeight, formHeight) {
     }, [searchActive, formActive, formHeight, searchHeight, dispatch]);
 
     return {
+        actionsHeight,
         searchActive,
         formActive,
-        actionsHeight,
     };
 }

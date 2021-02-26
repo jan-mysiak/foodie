@@ -10,8 +10,6 @@ export default function useTextInput(min, max, pattern) {
     }
 
     const validate = (newValue) => {
-        newValue = newValue ? newValue : value;
-
         if (min && newValue.length < min) {
             return `Fältet måste innehålla minst ${min} tecken`;
         }

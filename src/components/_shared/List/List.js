@@ -17,7 +17,10 @@ export default function List(props) {
                 </p>
             </div>
 
-            <div className={styles.categoryColor} style={{ background: key % 2 === 0 ? "lime" : "red" }} />
+            <div
+                className={styles.categoryColor}
+                style={{ background: key % 2 === 0 ? "lime" : "red" }}
+            />
         </li>
     )
 

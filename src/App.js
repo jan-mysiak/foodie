@@ -1,9 +1,12 @@
 import { BrowserRouter } from "react-router-dom";
+import useInitializer from "./api/hooks/useInitializer";
 import Navigation from "./components/Navigation/Navigation";
 import Routes from "./components/Routes";
 import { Notification } from "./components/_shared/Layout/";
 
 function App() {
+  const authError = useInitializer();
+
   return (
     <div className="app">
       <BrowserRouter>

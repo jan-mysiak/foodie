@@ -1,24 +1,33 @@
 import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { createNotification, signInUserAsync } from '../../../store/actions/';
-import { FETCH_COMPLETE, FETCH_FAILED } from '../../../store/statusTypes';
+import { createNotification, setUserId, setUserStatus, signInUserAsync } from '../../../store/actions/';
+import { FETCH_COMPLETE, FETCH_FAILED, IDLE } from '../../../store/statusTypes';
 import useTextInput from '../../_shared/Inputs/hooks/useTextInput';
 
 export default function useLogin(history) {
     const { userStatus, userId } = useSelector(s => s.user);
     const dispatch = useDispatch();
     const userName = useTextInput(1);
-    const [userFound, setUserFound] = useState(false);
+    const [nameError, setNameError] = useState("");
+
+    console.log(userName.error);
 
     useEffect(() => {
+        dispatch(setUserId(""));
+    }, [])
+
+    useEffect(() => {
+        console.log(userId);
         if (userStatus === FETCH_COMPLETE) {
             if (userId) {
-                setUserFound(true);
+                setNameError("");
                 history.push("/groceries");
+                dispatch(setUserStatus(IDLE));
+
             }
             else {
-                // "Användaren hittades inte"
-                setUserFound(false);
+                setNameError("Användaren hittades inte");
+                setTimeout(() => setNameError(""), 300);
             }
         }
         else if (userStatus === FETCH_FAILED) {
@@ -29,16 +38,25 @@ export default function useLogin(history) {
     const onLogin = (e) => {
         e.preventDefault();
 
-        const hasErrors = userName.validate();
+        const hasErrors = userName.onChange(userName.value);
 
         if (!hasErrors) {
-            dispatch(signInUserAsync(userName.value));
+            signIn(userName.value);
         }
+    }
+
+    const onAnonymousLogin = () => {
+        signIn("anonymous")
+    }
+
+    const signIn = (userName) => {
+        dispatch(signInUserAsync(userName));
     }
 
     return {
         onLogin,
+        onAnonymousLogin,
         userName,
-        userFound,
+        nameError,
     }
 }

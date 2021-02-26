@@ -36,8 +36,9 @@ body {
 }
 
 main {
-  margin-top: var(--topnav-height);
   max-height: calc(100vh - var(--topnav-height));
+  margin-top: var(--topnav-height);
+  background: var(--primary-color);
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -73,4 +74,8 @@ input, button {
 
 input {
   text-indent: 8px;
+}
+
+button:active {
+  color: var(--highlight);
 }

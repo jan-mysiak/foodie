@@ -1,7 +1,7 @@
-import { useEffect } from 'react'
+import { useLayoutEffect } from 'react'
 import { setFormActive, setMenuActive, setSearchActive } from '../../store/actions/uiActions';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import ActionIcon from './ActionIcon';
 import MenuToggle from './MenuToggle';
 import NavMenu from './NavMenu';
@@ -24,9 +24,10 @@ export default function Navigation() {
     const toggleMenu = () => dispatch(setMenuActive(!menuActive));
 
     // When user navigates
-    useEffect(() => {
+    useLayoutEffect(() => {
         dispatch(setSearchActive(false));
         dispatch(setFormActive(false));
+
 
         // Delay before menu closes to allow icons to reset
         setTimeout(() => {

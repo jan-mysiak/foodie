@@ -17,8 +17,3 @@ export default function groceriesReducer(state = initialState, action) {
             return state;
     }
 }
-
-// ...state,
-//     categories: state.categories.map(c =>
-//         (c.id === payload.id ? Object.assign({}, c, payload) : c)
-//     )

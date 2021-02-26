@@ -72,9 +72,13 @@
 
 .inlineIcon_active {
     composes: inlineIcon;
-    /* transform: scale(.8); */
     padding: 12px;
     color: var(--highlight);
+}
+
+.inlineIcon_error {
+    composes: inlineIcon;
+    color: var(--danger);
 }
 
 /* NOTIFICATION */

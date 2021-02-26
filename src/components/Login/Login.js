@@ -6,18 +6,11 @@ import { TextInput } from '../_shared/Inputs/';
 import { FlexRow, InlineButton, InlineIcon } from '../_shared/Layout/';
 
 export default function Login(props) {
-    const { onLogin, onAnonymousLogin, userName, userFound } = useLogin(props.history);
-
-    const AnonymousButton = () => (
-        <button className={styles.anonymousBtn}>
-            <Link to="/groceries">
-                Fortsätt utan att logga in
-            </Link>
-        </button>
-    )
+    const { onLogin, onAnonymousLogin, userName, nameError } = useLogin(props.history);
 
     return (
         <div className={styles.login}>
+            {/* HEADER */}
             <div className={styles.header}>
                 <h1 className={styles.title}>
                     Inköpslistan
@@ -27,23 +20,32 @@ export default function Login(props) {
                 </p>
             </div>
 
-
+            {/* CONTENT */}
             <div className={styles.content}>
-                <div className={styles.loginForm}>
+                {/* LOGIN FORM */}
+                <form className={styles.loginForm} onSubmit={onLogin}>
                     <label className={styles.label}>Fyll i ditt användarnamn</label>
                     <FlexRow>
-                        <InlineIcon icon={FaUser} isActive={userName.value} />
+                        <InlineIcon
+                            icon={FaUser}
+                            hasError={userName.error || nameError}
+                            isActive={userName.value}
+                        />
                         <TextInput {...userName} placeholder="Användarnamn.." />
                         <InlineButton icon={FaCheck} />
                     </FlexRow>
-                </div>
+                </form>
 
-                <label className={styles.label}>Eller utforska utan att behöva handla</label>
-                <AnonymousButton />
+                {/* ANONYMOUS BUTTON */}
+                <label className={styles.label}>Eller utforska appen</label>
+                <button className={styles.anonymousBtn} onClick={onAnonymousLogin}>
+                    Fortsätt utan att logga in
+                </button>
             </div>
 
+            {/* FOOTER */}
             <div className={styles.footer}>
-                <small>Jan Mysiak</small>
+                <small>by Jan Mysiak</small>
 
                 <div className={styles.socialIcons}>
                     <FaLinkedinIn size="24" />

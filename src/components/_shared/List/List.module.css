@@ -3,6 +3,7 @@
 }
 
 .listItem {
+    height: 5rem;
     min-height: 5rem;
     border-bottom: solid 1px rgba(0, 0, 0, .1);
     display: flex;
@@ -15,9 +16,11 @@
 
 .content {}
 
-.name {}
+.name {
+}
 
 .description {
+    color: var(--secondary-text);
     font-size: .8rem;
 }
 
@@ -26,4 +29,5 @@
     box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, .6);
     height: 40%;
     width: 2rem;
+    background: orange;
 }
