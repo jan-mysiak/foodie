@@ -1,7 +1,7 @@
 import { useLayoutEffect } from 'react'
 import { setFormActive, setMenuActive, setSearchActive } from '../../store/actions/uiActions';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import ActionIcon from './ActionIcon';
 import MenuToggle from './MenuToggle';
 import NavMenu from './NavMenu';

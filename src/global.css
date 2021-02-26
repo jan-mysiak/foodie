@@ -15,6 +15,7 @@
   --light-shadow: 1px 1px 3px 0px rgba(0, 0, 0, .3);
   /* In case it needs to be adjusted, dynamically or otherwise */
   --topnav-height: 5rem;
+  --row-height: 2.8rem;
 }
 
 * {

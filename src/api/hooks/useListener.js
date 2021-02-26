@@ -10,7 +10,7 @@ export default function useListener(collection) {
 
     const cancelCallback = React.useRef(null);
 
-    const listen = (converter, actionTypes, orderBy, query) => {
+    const listen = (converter, actionTypes, orderBy, predicate) => {
         if (!userId || !collection || cancelCallback.current) {
             return;
         }
@@ -21,8 +21,8 @@ export default function useListener(collection) {
         if (orderBy) {
             collectionRef = collectionRef.orderBy(orderBy[0], orderBy[1]);
         }
-        if (query) {
-            collectionRef = collectionRef.where(query[0], query[1], query[2]);
+        if (predicate) {
+            collectionRef = collectionRef.where(predicate[0], predicate[1], predicate[2]);
         }
 
         dispatch({ type: actionTypes.SET, payload: [] });

@@ -1,8 +1,8 @@
 /* TEXT INPUT */
 
 .textInput {
-    min-height: var(--row-height);
     width: 100%;
+    height: 100%;
     /* background: var(--primary-color); */
     background: none;
     color: white;

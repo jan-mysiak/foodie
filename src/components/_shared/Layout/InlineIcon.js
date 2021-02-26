@@ -19,7 +19,8 @@ export default function InlineIcon({ icon, isActive, hasError }) {
     return (
         <>
             {createElement(icon, {
-                className: iconClass()
+                className: iconClass(),
+                style: { fontSize: "3rem" }
             })}
         </>
     )

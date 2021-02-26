@@ -1,43 +1,36 @@
-import React from 'react';
+import React from 'react'
+import ListItem from './ListItem';
+import styles from './List.module.css';
+import useList from './hooks/useList';
 import PropTypes from 'prop-types';
-import styles from "./List.module.css";
 
 export default function List(props) {
-    const { items } = props;
-    const ref = React.useRef(null);
+    let { items, onDelete, onConfirm, placeholder = "Inga resultat..", status } = props;
+    const { handleRemove, removeId, listItems } = useList(items, status);
 
-    const listItems = items.map((item, key) =>
-        <li className={styles.listItem} key={key}>
-            <div className={styles.content}>
-                <h4 className={styles.name}>
-                    Name
-                </h4>
-                <p className={styles.description}>
-                    Description
-                </p>
-            </div>
+    if (!listItems.length) {
+        return <div className={styles.placeholder}>{placeholder}</div>
+    }
 
-            <div
-                className={styles.categoryColor}
-                style={{ background: key % 2 === 0 ? "lime" : "red" }}
-            />
-        </li>
+    return (
+        <div className={styles.list}>
+            {listItems.map(item =>
+                <ListItem
+                    item={item}
+                    key={item.id}
+                    remove={removeId === item.id}
+                    onDelete={onDelete ? () => handleRemove(item, onDelete) : null}
+                    onConfirm={onConfirm ? () => handleRemove(item, onConfirm) : null}
+                />
+            )}
+        </div>
     )
-
-    if (!items.length) {
-        return null;
-    }
-    else {
-        return (
-            <ul ref={ref} className={styles.list}>
-                {listItems}
-            </ul >
-        )
-    }
 }
 
 List.propTypes = {
     items: PropTypes.array.isRequired,
+    status: PropTypes.string.isRequired,
+    onDelete: PropTypes.func,
+    onConfirm: PropTypes.func,
+    placeholder: PropTypes.string,
 }
-
-

@@ -10,29 +10,26 @@ export default function useLogin(history) {
     const userName = useTextInput(1);
     const [nameError, setNameError] = useState("");
 
-    console.log(userName.error);
-
     useEffect(() => {
         dispatch(setUserId(""));
-    }, [])
+    }, [dispatch])
 
     useEffect(() => {
-        console.log(userId);
         if (userStatus === FETCH_COMPLETE) {
             if (userId) {
                 setNameError("");
                 history.push("/groceries");
-                dispatch(setUserStatus(IDLE));
-
             }
             else {
                 setNameError("Användaren hittades inte");
                 setTimeout(() => setNameError(""), 300);
             }
+            dispatch(setUserStatus(IDLE));
         }
         else if (userStatus === FETCH_FAILED) {
             dispatch(createNotification("Något gick fel när du skulle loggas in"));
         }
+
     }, [userStatus, history, userId, dispatch])
 
     const onLogin = (e) => {

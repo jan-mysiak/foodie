@@ -37,7 +37,7 @@
 
 .anonymousBtn {
     width: 100%;
-    height: 3rem;
+    height: var(--row-height);
     box-shadow: var(--light-shadow);
     background: var(--secondary-color);
     color: var(--secondary-text);

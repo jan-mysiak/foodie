@@ -13,9 +13,9 @@ export default function useInitializer() {
 
     // Listeners
     const categoryListener = useListener("categories");
-    const groceryListener = useListener("groceries");
     const productListener = useListener("products");
     const colorListener = useListener("colors");
+    const groceryListener = useListener("groceries");
 
     useEffect(() => {
         const cancelListeners = () => {
@@ -50,22 +50,22 @@ export default function useInitializer() {
         }
 
         // Listen for changes
-        if (!categoryListener.isActive) {
-            categoryListener.listen(categoryConverter, ACTION_TYPES.categories, ["name", "desc"]);
-        }
-        if (!colorListener.isActive) {
-            colorListener.listen(colorConverter, ACTION_TYPES.colors, null, ["available", "==", true])
-        }
-        if (!productListener.isActive) {
-            productListener.listen(productConverter, ACTION_TYPES.products, ["name", "desc"]);
-        }
+        // if (!categoryListener.isActive) {
+        //     categoryListener.listen(categoryConverter, ACTION_TYPES.categories, ["name", "desc"]);
+        // }
+        // if (!colorListener.isActive) {
+        //     colorListener.listen(colorConverter, ACTION_TYPES.colors, null, ["available", "==", true])
+        // }
+        // if (!productListener.isActive) {
+        //     productListener.listen(productConverter, ACTION_TYPES.products, ["name", "desc"]);
+        // }
         if (!groceryListener.isActive) {
-            groceryListener.listen(groceryConverter, ACTION_TYPES.groceries, ["name", "desc"]);
+            groceryListener.listen(groceryConverter, ACTION_TYPES.groceries, ["product.name", "desc"]);
         }
 
         // Unmount
         return () => cancelListeners();
-    }, [userId]);
+    }, [userId, productListener, groceryListener, categoryListener, colorListener]);
 
     return authError;
 }
