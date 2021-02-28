@@ -38,7 +38,7 @@ body {
 
 main {
   max-height: calc(100vh - var(--topnav-height));
-  margin-top: var(--topnav-height);
+  padding-top: var(--topnav-height);
   background: var(--primary-color);
   overflow: hidden;
   display: flex;

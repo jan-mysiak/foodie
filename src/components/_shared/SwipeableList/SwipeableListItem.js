@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './style.module.css';
+import styles from './SwipeableList.module.css';
 import { DIRECTION, START_THRESHOLD, TRIGGER_THRESHOLD } from './contants';
 import PropTypes from 'prop-types';
 import { FaTrash, FaCheck } from 'react-icons/fa';
@@ -64,17 +64,17 @@ export default function SwipeableListItem(props) {
     // EVENT HANDLERS
     // Swipe start
     const onSwipeStart = (e) => {
-        if (!e) {
+        if (!e && !state.swipeStart[0]) {
             return;
         }
 
         const { clientX, clientY } = e;
 
-        let state = initialState;
-        state.swipeStart = [clientX, clientY];
-        state.isSwiping = true;
+        let startState = initialState;
+        startState.swipeStart = [clientX, clientY];
+        startState.isSwiping = true;
 
-        setState(state);
+        setState(startState);
     }
 
     // Swipe move
@@ -132,8 +132,8 @@ export default function SwipeableListItem(props) {
             contentRef.current.className = styles.content_reset;
 
             setTimeout(() => {
-                contentRef.current.className = styles.content;
                 setState(initialState);
+                contentRef.current.className = styles.content;
             }, 300)
         }
     }
