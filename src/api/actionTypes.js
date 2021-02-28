@@ -7,9 +7,9 @@ export const ACTION_TYPES = {
         SET_STATUS: "SET_CATEGORIES_STATUS"
     },
     colors: {
-        SET: "SET_COLORS",
-        ADD: "ADD_COLOR",
-        DELETE: "DELETE_COLOR",
+        SET: "SET_AVAILABLE_COLORS",
+        ADD: "ADD_AVAILABLE_COLOR",
+        DELETE: "DELETE_AVAILABLE_COLOR",
         SET_STATUS: "SET_COLORS_STATUS",
     },
     products: {

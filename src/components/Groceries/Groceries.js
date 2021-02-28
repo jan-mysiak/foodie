@@ -1,15 +1,18 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { deleteGroceryAsync } from '../../store/actions';
 import ActionsContainer from '../_shared/Layout/ActionsContainer';
 import usePageLayout from '../_shared/Layout/hooks/usePageLayout';
-import List from '../_shared/List/List';
 import useSearch from '../_shared/Search/hooks/useSearch';
 import Search from '../_shared/Search/Search';
+import SwipeableList from '../_shared/SwipeableList/SwipeableList';
+import SwipeableListItem from '../_shared/SwipeableList/SwipeableListItem';
 
 export default function Groceries() {
-    const { groceries, groceriesStatus } = useSelector(s => s.groceries);
     const { searchActive, formActive, actionsHeight } = usePageLayout(7, 10);
+    const { groceries, groceriesStatus } = useSelector(s => s.groceries);
+    const { userId } = useSelector(s => s.user);
+    const dispatch = useDispatch();
 
     const search = useSearch(groceries);
 
@@ -20,11 +23,17 @@ export default function Groceries() {
                 {formActive && <AddGroceryForm />}
             </ActionsContainer>
 
-            <List
-                items={search.results}
-                onDelete={deleteGroceryAsync}
-                status={groceriesStatus}
-            />
+            <SwipeableList>
+                {search.results.map(item => {
+                    return (
+                        <SwipeableListItem
+                            key={item.id}
+                            item={item}
+                            onLeftSwipe={() => dispatch(deleteGroceryAsync(userId, item.id))}
+                        />
+                    )
+                })}
+            </SwipeableList>
         </main>
     )
 }

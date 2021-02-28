@@ -8,7 +8,7 @@ const rootReducer = combineReducers({
     groceries: groceriesReducer,
     products: productsReducer,
     categories: categoriesReducer,
-    color: colorsReducer
+    colors: colorsReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunk));

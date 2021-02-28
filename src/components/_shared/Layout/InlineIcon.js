@@ -20,7 +20,6 @@ export default function InlineIcon({ icon, isActive, hasError }) {
         <>
             {createElement(icon, {
                 className: iconClass(),
-                style: { fontSize: "3rem" }
             })}
         </>
     )

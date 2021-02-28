@@ -13,3 +13,25 @@
     color: var(--secondary-text);
     /* font-size: .9rem; */
 }
+
+/* COLOR PICKER */
+
+.colorPicker {
+    width: 100%;
+    align-items: center;
+    display: flex;
+}
+
+.colorItem {
+    height: 1.5rem;
+    width: 1.5rem;
+    border-radius: 4px;
+    opacity: .4;
+    transition: opacity .3s;
+    display: inline-block;
+    margin: 5px;
+}
+
+.colorItem_active {
+    opacity: 1;
+}

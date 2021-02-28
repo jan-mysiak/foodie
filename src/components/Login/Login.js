@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import useLogin from './hooks/useLogin';
 import styles from './Login.module.css';
 import { FaUser, FaLinkedinIn, FaGithub, FaEnvelope, FaCheck } from 'react-icons/fa';
@@ -48,9 +47,9 @@ export default function Login(props) {
                 <small>by Jan Mysiak</small>
 
                 <div className={styles.socialIcons}>
-                    <FaLinkedinIn size="24" />
-                    <FaGithub size="24" />
-                    <FaEnvelope size="24" />
+                    <FaLinkedinIn size="24" href="https://www.linkedin.com/in/jan-mysiak" />
+                    <FaGithub size="24" href="https://github.com/jan-mysiak" />
+                    <FaEnvelope size="24" href="mailto:jan.mysiak@hotmail.com" />
                 </div>
             </div>
         </div>

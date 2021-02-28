@@ -77,6 +77,6 @@ input {
   text-indent: 8px;
 }
 
-button:active {
+button:active, button:focus {
   color: var(--highlight);
 }

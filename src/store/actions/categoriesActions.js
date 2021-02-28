@@ -13,9 +13,9 @@ export const deleteCategory = (payload) => ({ type: "DELETE_CATEGORY", payload }
 export const setCategoryStatus = (payload) => ({ type: "SET_CATEGORY_STATUS", payload });
 
 // Async actions
-export const addCategoryAsync = (category, currentUserId) => async dispatch => {
+export const addCategoryAsync = (userId, category) => async dispatch => {
     const batch = firebase.firestore().batch();
-    const userRef = firebase.firestore().collection("users").doc(currentUserId);
+    const userRef = firebase.firestore().collection("users").doc(userId);
 
     const categoriesRef = userRef.collection("categories").doc();
     batch.set(categoriesRef, category);
@@ -33,11 +33,11 @@ export const addCategoryAsync = (category, currentUserId) => async dispatch => {
         })
 }
 
-export const deleteCategoryAsync = (category, currentUserId) => async dispatch => {
-    if (!category || !currentUserId) return;
+export const deleteCategoryAsync = (userId, category) => async dispatch => {
+    if (!category || !userId) return;
 
     const batch = firebase.firestore().batch();
-    const userRef = firebase.firestore().collection("users").doc(currentUserId);
+    const userRef = firebase.firestore().collection("users").doc(userId);
 
     const categoriesRef = userRef.collection("categories").doc(category.id);
     batch.delete(categoriesRef);
