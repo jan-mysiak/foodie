@@ -1,10 +1,10 @@
 .login {
     min-height: 28rem;
-    background-image: linear-gradient(0deg, rgba(0, 0, 0, .7), rgba(0, 0, 0, .7)), url(../../assets/img/cover.jpg);
+    background-image: linear-gradient(0deg, rgba(0, 0, 0, .6), rgba(0, 0, 0, .6)), url(../../assets/img/cover2.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    height: 100vh;
+    height: 100%;
     padding: 2rem;
 }
 
@@ -14,11 +14,13 @@
     text-align: center;
     border-radius: 6px;
     width: 100%;
+    margin: auto;
     margin-bottom: 4rem;
+    animation: fade-in .35s backwards .3s;
 }
 
 .title {
-    font-size: 2rem;
+    font-size: 2.2rem;
     color: var(--secondary-text);
     margin-bottom: .5rem;
 }
@@ -58,11 +60,11 @@
 }
 
 .footer {
-    position: fixed;
+    position: absolute;
     bottom: 0;
     left: 0;
     height: 3rem;
-    background: rgba(0, 0, 0, .3);
+    background: rgba(0, 0, 0, .6);
     width: 100%;
     margin-bottom: 0;
     text-align: center;
@@ -80,6 +82,11 @@
     display: flex;
     justify-content: space-between;
     margin-left: auto;
+}
+
+.socialIcons a {
+    display: flex;
+    align-items: center;
 }
 
 /* ANIMATIONS */
@@ -104,5 +111,32 @@
     }
     to {
         height: 3rem;
+    }
+}
+
+@-webkit-keyframes heighten-in {
+    from {
+        height: 0;
+    }
+    to {
+        height: 3rem;
+    }
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
     }
 }

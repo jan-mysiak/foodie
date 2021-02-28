@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './style.module.css';
+import styles from './SwipeableList.module.css';
 
 export default function SwipeableList(props) {
     return (

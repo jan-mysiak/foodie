@@ -36,34 +36,37 @@ export default function Navigation() {
     }, [location, dispatch])
 
     return (
-        <div className={location.pathname === "/" ? styles.topnav_hidden : styles.topnav}>
+        <>
+            <div className={location.pathname === "/" ? styles.topnav_hidden : styles.topnav}>
+
+
+                {/* TOGGLE */}
+                <MenuToggle
+                    isActive={menuActive}
+                    onClick={toggleMenu}
+                    currentPage={LINKS[location.pathname]}
+                />
+
+                {/* ACTIONS */}
+                <div className={menuActive ? styles.actions_hidden : styles.actions}>
+                    <ActionIcon
+                        icon={FaSearch}
+                        onClick={toggleSearch}
+                        isActive={searchActive}
+                    />
+                    <ActionIcon
+                        icon={FaPlusCircle}
+                        onClick={toggleForm}
+                        isActive={formActive}
+                    />
+                </div>
+            </div>
             {/* MENU */}
             <NavMenu
                 items={LINKS}
                 isActive={menuActive}
                 currentLocation={location.pathname}
             />
-
-            {/* TOGGLE */}
-            <MenuToggle
-                isActive={menuActive}
-                onClick={toggleMenu}
-                currentPage={LINKS[location.pathname]}
-            />
-
-            {/* ACTIONS */}
-            <div className={menuActive ? styles.actions_hidden : styles.actions}>
-                <ActionIcon
-                    icon={FaSearch}
-                    onClick={toggleSearch}
-                    isActive={searchActive}
-                />
-                <ActionIcon
-                    icon={FaPlusCircle}
-                    onClick={toggleForm}
-                    isActive={formActive}
-                />
-            </div>
-        </div>
+        </>
     )
 }

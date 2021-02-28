@@ -47,9 +47,15 @@ export default function Login(props) {
                 <small>by Jan Mysiak</small>
 
                 <div className={styles.socialIcons}>
-                    <FaLinkedinIn size="24" href="https://www.linkedin.com/in/jan-mysiak" />
-                    <FaGithub size="24" href="https://github.com/jan-mysiak" />
-                    <FaEnvelope size="24" href="mailto:jan.mysiak@hotmail.com" />
+                    <a href="https://www.linkedin.com/in/jan-mysiak" target="_blank" rel="noreferrer">
+                        <FaLinkedinIn size="24" />
+                    </a>
+                    <a href="https://github.com/jan-mysiak" target="_blank" rel="noreferrer">
+                        <FaGithub size="24" />
+                    </a>
+                    <a href="mailto:jan.mysiak@hotmail.com" target="_blank" rel="noreferrer">
+                        <FaEnvelope size="24" />
+                    </a>
                 </div>
             </div>
         </div>

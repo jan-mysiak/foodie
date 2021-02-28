@@ -80,3 +80,19 @@ input {
 button:active, button:focus {
   color: var(--highlight);
 }
+
+.app {
+  height: 100vh;
+  position: relative;
+}
+
+@media screen and (min-width: 32rem) {
+  .app {
+    width: 32rem;
+    overflow: hidden;
+    height: 95vh;
+    margin: 1rem auto;
+    border: solid 10px black;
+    border-radius: 2rem;
+  }
+}

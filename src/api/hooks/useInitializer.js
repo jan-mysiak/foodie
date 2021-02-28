@@ -53,9 +53,9 @@ export default function useInitializer() {
         if (!categoryListener.isActive) {
             categoryListener.listen(categoryConverter, ACTION_TYPES.categories, ["name", "desc"]);
         }
-        // if (!colorListener.isActive) {
-        //     colorListener.listen(colorConverter, ACTION_TYPES.colors, null, ["available", "==", true])
-        // }
+        if (!colorListener.isActive) {
+            colorListener.listen(colorConverter, ACTION_TYPES.colors, null, ["available", "==", true])
+        }
         // if (!productListener.isActive) {
         //     productListener.listen(productConverter, ACTION_TYPES.products, ["name", "desc"]);
         // }

@@ -5,7 +5,7 @@
     justify-content: space-between;
     padding: 0 1rem;
     background: var(--secondary-color);
-    position: fixed;
+    position: absolute;
     top: 0;
     width: 100%;
     z-index: 999;
@@ -43,13 +43,14 @@
 /* HAMBURGER */
 
 .hamburger {
-    margin-right: .2rem;
+    margin-right: .6rem;
+    display: inline;
 }
 
 .line {
     width: 30px;
     height: 4px;
-    margin: 6px;
+    margin: 6px 0;
     background: var(--primary-text);
     transition: all .3s;
 }
@@ -73,7 +74,7 @@
 /* MENU */
 
 .navMenu {
-    position: fixed;
+    position: absolute;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -94,6 +95,10 @@
 .navMenu_active {
     composes: navMenu;
     left: 0;
+}
+
+.topnav_hidden .navMenu {
+    display: none;
 }
 
 .navLink {

@@ -5,8 +5,7 @@ import ActionsContainer from '../_shared/Layout/ActionsContainer';
 import usePageLayout from '../_shared/Layout/hooks/usePageLayout';
 import useSearch from '../_shared/Search/hooks/useSearch';
 import Search from '../_shared/Search/Search';
-import SwipeableList from '../_shared/SwipeableList/SwipeableList';
-import SwipeableListItem from '../_shared/SwipeableList/SwipeableListItem';
+import { SwipeableList, SwipeableListItem } from '../_shared/SwipeableList/';
 import CategoryForm from './CategoryForm';
 
 export default function Categories() {
