@@ -34,8 +34,7 @@
 
 .listItem_remove {
     composes: listItem;
-    transition: height .3s;
-    transition-delay: .3s;
+    transition: height .3s ease .3s;
     height: 0;
     overflow: hidden;
 }
@@ -64,7 +63,6 @@
 .content_reset {
     composes: content;
     transition: all .3s;
-    -webkit-transition: all .3s;
     /* pointer-events: none; */
 }
 
@@ -116,11 +114,26 @@
 .bgIcon_wobble {
     composes: bgIcon;
     animation: wobble .4s ease .1s;
+    -webkit-animation: wobble .4s ease .1s;
 }
 
 /* ANIMATIONS */
 
 @keyframes wobble {
+    0% {
+        transform: rotate(0);
+    }
+    33% {
+        transform: rotate(35deg);
+    }
+    66% {
+        transform: rotate(-35deg);
+    }
+    100% {
+        transform: rotate(0);
+    }
+}
+@-webkit-keyframes wobble {
     0% {
         transform: rotate(0);
     }

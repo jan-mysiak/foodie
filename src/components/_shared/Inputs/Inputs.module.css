@@ -49,9 +49,16 @@
     composes: colorItem;
     opacity: 1;
     animation: focus .4s;
+    -webkit-animation: focus .4s;
 }
 
 @keyframes focus {
+    33% {
+        transform: scale(.8);
+    }
+}
+
+@-webkit-keyframes focus {
     33% {
         transform: scale(.8);
     }

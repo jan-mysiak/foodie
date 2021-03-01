@@ -1,3 +1,3 @@
 # Foodie
 
-Simple shopping list built using React. Live preview can be found at: *INSERT URL EVENTUALLY*
+Simple shopping list built using React. <br/> Live preview can be found at: https://jan-mysiak.github.io/foodie
