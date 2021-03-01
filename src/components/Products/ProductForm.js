@@ -38,7 +38,7 @@ export default function ProductForm({ callback, initialProductName = "" }) {
             categoryName.reset();
             setIdle()
         }
-    }, [productsStatus, dispatch])
+    }, [productsStatus, productName, categoryName, dispatch])
 
     // Resize actions when changing forms to account for header
     useEffect(() => {

@@ -9,7 +9,7 @@ import { SwipeableList, SwipeableListItem } from '../_shared/SwipeableList';
 import ProductForm from './ProductForm';
 
 export default function Products() {
-    const { products, productsStatus } = useSelector(s => s.products);
+    const { products } = useSelector(s => s.products);
     const { userId } = useSelector(s => s.user);
     const dispatch = useDispatch();
 

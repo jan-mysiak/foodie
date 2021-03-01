@@ -1,6 +1,6 @@
 import { useState, useEffect, Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ADD_START, FETCH_COMPLETE, FETCH_FAILED } from '../../store/statusTypes';
+import { ADD_START, FETCH_COMPLETE, FETCH_FAILED, IDLE } from '../../store/statusTypes';
 import ProductForm from '../Products/ProductForm';
 import useTextInput from '../_shared/Inputs/hooks/useTextInput';
 import SuggestionInput from '../_shared/Inputs/SuggestionInput';
@@ -10,8 +10,9 @@ import { FaShoppingBag, FaComment, FaPlus } from 'react-icons/fa';
 import { createNotification, setActionsHeight } from '../../store/actions/uiActions';
 import { addGroceryAsync } from '../../store/actions/groceriesActions';
 import TextInput from '../_shared/Inputs/TextInput';
+import { setCategoriesStatus } from '../../store/actions/categoriesActions';
 
-export default function AddGroceryForm() {
+export default function GroceryForm() {
     const { groceries, groceriesStatus } = useSelector(s => s.groceries);
     const { products } = useSelector(s => s.products);
     const { userId } = useSelector(s => s.user);
@@ -29,18 +30,22 @@ export default function AddGroceryForm() {
         else if (formStep === 1) {
             dispatch(setActionsHeight(15))
         }
-    }, [formStep])
+    }, [formStep, dispatch])
 
     // After submit
     useEffect(() => {
+        const setIdle = () => dispatch(setCategoriesStatus(IDLE));
+
         if (groceriesStatus === FETCH_COMPLETE) {
             productName.reset();
             description.reset();
+            setIdle();
         }
         else if (groceriesStatus === FETCH_FAILED) {
             dispatch(createNotification("Det gick inte att lägga till varan i inköpslistan"));
+            setIdle();
         }
-    }, [groceriesStatus])
+    }, [groceriesStatus, productName, description, dispatch])
 
     // Submit
     const onSubmit = () => {

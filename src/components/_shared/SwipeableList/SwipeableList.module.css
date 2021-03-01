@@ -56,7 +56,6 @@
 .content_active {
     composes: content;
     transition: background-color .15s;
-    /* color: var(--highlight); */
     background-color: var(--secondary-color);
 }
 
@@ -133,6 +132,7 @@
         transform: rotate(0);
     }
 }
+
 @-webkit-keyframes wobble {
     0% {
         transform: rotate(0);

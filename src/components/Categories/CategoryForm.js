@@ -1,7 +1,7 @@
 import { useEffect, useState, Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { FaTag, FaPalette, FaPlus } from 'react-icons/fa';
-import { ADD_START, ADD_FAILED, ADD_COMPLETE, IDLE, FETCH_COMPLETE } from '../../store/statusTypes';
+import { ADD_START, ADD_FAILED, ADD_COMPLETE, IDLE, } from '../../store/statusTypes';
 import FlexRow from '../_shared/Layout/FlexRow';
 import useTextInput from '../_shared/Inputs/hooks/useTextInput';
 import InlineButton from '../_shared/Layout/InlineButton';
@@ -15,7 +15,7 @@ import PropTypes from 'prop-types';
 
 export default function CategoryForm({ callback, initialCategoryName = "" }) {
     const { categoriesStatus, categories } = useSelector(s => s.categories);
-    const { colors, colorsStatus } = useSelector(s => s.colors);
+    const { colors } = useSelector(s => s.colors);
     const { userId } = useSelector(s => s.user);
     const dispatch = useDispatch();
 
@@ -49,7 +49,7 @@ export default function CategoryForm({ callback, initialCategoryName = "" }) {
             dispatch(createNotification("Det gick inte att lägga till kategorin"))
             setIdle();
         }
-    }, [categoriesStatus, categoryName])
+    }, [categoriesStatus, categoryName, callback, dispatch])
 
     const onSubmit = () => {
         const nameError = categoryName.onChange(categoryName.value);

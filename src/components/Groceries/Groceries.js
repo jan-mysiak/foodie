@@ -1,13 +1,14 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteGroceryAsync } from '../../store/actions';
+import { createNotification, deleteGroceryAsync } from '../../store/actions';
+import { DELETE_FAILED } from '../../store/statusTypes';
 import ActionsContainer from '../_shared/Layout/ActionsContainer';
 import usePageLayout from '../_shared/Layout/hooks/usePageLayout';
 import useSearch from '../_shared/Search/hooks/useSearch';
 import Search from '../_shared/Search/Search';
 import SwipeableList from '../_shared/SwipeableList/SwipeableList';
 import SwipeableListItem from '../_shared/SwipeableList/SwipeableListItem';
-import AddGroceryForm from './AddGroceryForm';
+import GroceryForm from './GroceryForm';
 
 export default function Groceries() {
     const { searchActive, formActive, actionsHeight } = usePageLayout(7, 10);
@@ -17,11 +18,17 @@ export default function Groceries() {
 
     const search = useSearch(groceries);
 
+    useEffect(() => {
+        if (groceriesStatus === DELETE_FAILED) {
+            dispatch(createNotification("Det gick inte att ta bort varan"));
+        }
+    }, [groceriesStatus, dispatch])
+
     return (
         <main>
             <ActionsContainer height={actionsHeight}>
                 {searchActive && <Search {...search.input} placeholder="Sök i inköpslistan.." />}
-                {formActive && <AddGroceryForm />}
+                {formActive && <GroceryForm />}
             </ActionsContainer>
 
             <SwipeableList>

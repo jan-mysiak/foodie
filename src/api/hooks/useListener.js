@@ -19,7 +19,7 @@ export default function useListener(collection) {
         let collectionRef = db.collection("users").doc(userId).collection(collection);
 
         if (orderBy) {
-            collectionRef = collectionRef.orderBy(orderBy[0], orderBy[1]);
+            orderBy.forEach(o => collectionRef = collectionRef.orderBy(o[0], o[1]));
         }
         if (predicate) {
             collectionRef = collectionRef.where(predicate[0], predicate[1], predicate[2]);

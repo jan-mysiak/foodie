@@ -51,16 +51,21 @@ export default function useInitializer() {
 
         // Listen for changes
         if (!categoryListener.isActive) {
-            categoryListener.listen(categoryConverter, ACTION_TYPES.categories, ["name", "desc"]);
+            categoryListener.listen(categoryConverter, ACTION_TYPES.categories, [["name", "desc"]]);
         }
         if (!colorListener.isActive) {
             colorListener.listen(colorConverter, ACTION_TYPES.colors)
         }
         if (!productListener.isActive) {
-            productListener.listen(productConverter, ACTION_TYPES.products, ["name", "desc"]);
+            productListener.listen(productConverter,
+                ACTION_TYPES.products, [["category.name", "desc"], ["name", "desc"]]
+                // ACTION_TYPES.products, [["name", "desc"]]
+            );
         }
         if (!groceryListener.isActive) {
-            groceryListener.listen(groceryConverter, ACTION_TYPES.groceries, ["product.name", "desc"]);
+            groceryListener.listen(
+                groceryConverter, ACTION_TYPES.groceries, [["product.category.name", "desc"], ["product.name", "desc"]]
+            );
         }
 
         // Cleanup

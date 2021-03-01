@@ -7,6 +7,8 @@ import { Notification } from "./components/_shared/Layout/";
 function App() {
   const authError = useInitializer();
 
+  // TODO: handle auth error
+
   return (
     <div className="app">
       <BrowserRouter>

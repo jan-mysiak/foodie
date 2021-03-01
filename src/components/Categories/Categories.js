@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { deleteCategoryAsync, deleteCategory, updateCategory, createNotification } from '../../store/actions';
+import { deleteCategoryAsync, createNotification } from '../../store/actions';
 import { DELETE_FAILED } from '../../store/statusTypes';
 import ActionsContainer from '../_shared/Layout/ActionsContainer';
 import usePageLayout from '../_shared/Layout/hooks/usePageLayout';

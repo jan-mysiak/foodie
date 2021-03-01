@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './Layout.module.css';
-import FlexRow from './FlexRow';
 import InlineButton from './InlineButton';
 import { FaChevronLeft } from 'react-icons/fa';
 
