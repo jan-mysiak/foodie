@@ -1,6 +1,8 @@
+import { IDLE } from "../statusTypes";
+
 const initialState = {
     groceries: [],
-    groceriesStatus: "INIT"
+    groceriesStatus: IDLE
 }
 
 export default function groceriesReducer(state = initialState, action) {

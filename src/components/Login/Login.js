@@ -27,8 +27,8 @@ export default function Login(props) {
                     <FlexRow>
                         <InlineIcon
                             icon={FaUser}
-                            hasError={userName.error || nameError}
-                            isActive={userName.value}
+                            hasError={!!userName.error || !!nameError}
+                            isActive={!!userName.value}
                         />
                         <TextInput {...userName} placeholder="Användarnamn.." />
                         <InlineButton icon={FaCheck} />

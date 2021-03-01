@@ -1,6 +1,8 @@
+import { IDLE } from "../statusTypes";
+
 const initialState = {
     categories: [],
-    categoriesStatus: "",
+    categoriesStatus: IDLE,
 }
 
 export default function categoriesReducer(state = initialState, action) {
@@ -17,7 +19,7 @@ export default function categoriesReducer(state = initialState, action) {
                 )
             }
         case "DELETE_CATEGORY":
-            return { ...state, categories: state.categories.filter(c => c !== action.payload) };
+            return { ...state, categories: state.categories.filter(c => c.id !== action.payload) };
         case "SET_CATEGORIES_STATUS":
             return { ...state, categoriesStatus: action.payload };
         default:

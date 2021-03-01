@@ -16,7 +16,7 @@ export default function TextInput({ placeholder, onChange, value }) {
 
 TextInput.propTypes = {
     placeholder: PropTypes.string,
-    onChange: PropTypes.func,
+    onChange: PropTypes.func.isRequired,
     value: PropTypes.string,
 }
 

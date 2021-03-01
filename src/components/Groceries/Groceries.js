@@ -7,6 +7,7 @@ import useSearch from '../_shared/Search/hooks/useSearch';
 import Search from '../_shared/Search/Search';
 import SwipeableList from '../_shared/SwipeableList/SwipeableList';
 import SwipeableListItem from '../_shared/SwipeableList/SwipeableListItem';
+import AddGroceryForm from './AddGroceryForm';
 
 export default function Groceries() {
     const { searchActive, formActive, actionsHeight } = usePageLayout(7, 10);
@@ -35,13 +36,5 @@ export default function Groceries() {
                 })}
             </SwipeableList>
         </main>
-    )
-}
-
-function AddGroceryForm() {
-    return (
-        <div>
-            Add Grocery Form
-        </div>
     )
 }

@@ -12,6 +12,7 @@
     transition: transform .3s;
     -webkit-transition: transform .3s;
     overflow: hidden;
+    border-bottom: solid 1px rgba(0,0,0,.2);
 }
 
 .topnav_hidden {
@@ -97,7 +98,7 @@
     left: 0;
 }
 
-.topnav_hidden .navMenu {
+.topnav_hidden ~ .navMenu {
     display: none;
 }
 
@@ -118,6 +119,7 @@
     margin-top: auto;
     color: var(--secondary-text);
     font-size: 1.2rem;
+    cursor: pointer;
 }
 
 /* ACTIONS */

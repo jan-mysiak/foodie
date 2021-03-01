@@ -45,8 +45,9 @@
     position: relative;
     overflow: hidden;
     font-weight: 500;
-    /* border: solid 3px var(--secondary-text); */
+    cursor: pointer;
     border-radius: 6px;
+    /* border: solid 3px var(--secondary-text); */
     /* text-shadow: 1px 1px 1px rgba(0, 0, 0, .3); */
 }
 

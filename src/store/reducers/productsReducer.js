@@ -1,6 +1,8 @@
+import { IDLE } from "../statusTypes";
+
 const initialState = {
     products: [],
-    productsStatus: "INIT"
+    productsStatus: IDLE
 }
 
 export default function productsReducer(state = initialState, action) {

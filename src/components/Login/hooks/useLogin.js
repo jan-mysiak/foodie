@@ -7,7 +7,7 @@ import useTextInput from '../../_shared/Inputs/hooks/useTextInput';
 export default function useLogin(history) {
     const { userStatus, userId } = useSelector(s => s.user);
     const dispatch = useDispatch();
-    const userName = useTextInput(1);
+    const userName = useTextInput("", 1);
     const [nameError, setNameError] = useState("");
 
     useEffect(() => {

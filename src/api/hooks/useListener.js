@@ -37,7 +37,6 @@ export default function useListener(collection) {
                     if (change.type === "added") {
                         dispatch({ type: actionTypes.ADD, payload: change.doc.data() });
                     }
-                    // currently only used for categories
                     else if (change.type === "modified") {
                         dispatch({ type: actionTypes.UPDATE, payload: change.doc.data() });
                     }
@@ -49,6 +48,7 @@ export default function useListener(collection) {
             }, error => {
                 dispatch({ type: actionTypes.SET_STATUS, payload: FETCH_FAILED });
                 console.error(error);
+                cancel();
             });
     }
 
@@ -60,6 +60,6 @@ export default function useListener(collection) {
     return {
         listen,
         cancel,
-        isActive: cancelCallback.current ? true : false
+        isActive: cancelCallback.current
     }
 }

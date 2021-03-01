@@ -1,18 +1,25 @@
+import { IDLE } from "../statusTypes";
+
 const initialState = {
-    availableColors: [],
-    colorsStatus: "INIT"
+    colors: [],
+    colorsStatus: IDLE
 }
 
 export default function colorsReducer(state = initialState, action) {
     switch (action.type) {
-        case "SET_AVAILABLE_COLORS":
-            return { ...state, availableColors: action.payload };
-        case "ADD_AVAILABLE_COLOR":
-            return { ...state, availableColors: [action.payload, ...state.availableColors] };
-        case "DELETE_AVAILABLE_COLOR":
-            return { ...state, availableColors: state.availableColors.filter(g => g.id !== action.payload) };
+        case "SET_COLORS":
+            return { ...state, colors: action.payload };
+        case "ADD_COLOR":
+            return { ...state, colors: [action.payload, ...state.colors] };
+        case "UPDATE_COLOR":
+            return {
+                ...state,
+                colors: state.colors.map(c =>
+                    (c.id === action.payload.id ? Object.assign({}, c, action.payload) : c)
+                )
+            }
         case "SET_COLORS_STATUS":
-            return { ...state, availableColorsStatus: action.payload };
+            return { ...state, colorsStatus: action.payload };
         default:
             return state;
     }

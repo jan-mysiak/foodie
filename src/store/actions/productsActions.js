@@ -10,9 +10,8 @@ export const setProductsStatus = (payload) => ({ type: "SET_PRODUCTS_STATUS", pa
 export const addProductAsync = (userId, product) => async dispatch => {
     dispatch(setProductsStatus(ADD_START));
 
-    productsRef(userId)
-        // .withConverter
-        .set(product)
+    firebase.firestore().collection("users").doc(userId).collection("products")
+        .add(product)
         .then(() => {
             dispatch(setProductsStatus(ADD_COMPLETE));
         })
@@ -25,7 +24,7 @@ export const addProductAsync = (userId, product) => async dispatch => {
 export const deleteProductAsync = (userId, productId) => async dispatch => {
     dispatch(setProductsStatus(DELETE_START));
 
-    productsRef(userId, productId)
+    firebase.firestore().collection("users").doc(userId).collection("products").doc(productId)
         .delete()
         .then(() => {
             dispatch(setProductsStatus(DELETE_COMPLETE));
@@ -33,8 +32,4 @@ export const deleteProductAsync = (userId, productId) => async dispatch => {
         .catch(err => {
             dispatch(setProductsStatus(DELETE_FAILED));
         })
-}
-
-function productsRef(userId, docId = "") {
-    return firebase.firestore().collection("users").doc(userId).collection("products").doc(docId);
 }

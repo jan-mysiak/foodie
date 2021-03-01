@@ -1,6 +1,8 @@
+import { IDLE } from "../statusTypes";
+
 const initialState = {
     userId: "",
-    userStatus: "",
+    userStatus: IDLE,
 }
 
 export default function userReducer(state = initialState, action) {

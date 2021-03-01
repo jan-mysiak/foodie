@@ -1,116 +1,146 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { FaTag, FaPalette, FaPlus } from 'react-icons/fa';
-
-import InlineIcon from '../_shared/Layout/InlineIcon';
-import InlineButton from '../_shared/Layout/InlineButton';
-import TextInput from '../_shared/Inputs/TextInput';
+import { ADD_START, ADD_FAILED, ADD_COMPLETE, IDLE, FETCH_COMPLETE } from '../../store/statusTypes';
+import FlexRow from '../_shared/Layout/FlexRow';
 import useTextInput from '../_shared/Inputs/hooks/useTextInput';
-import { ColorPicker } from '../_shared/Inputs';
+import InlineButton from '../_shared/Layout/InlineButton';
+import InlineIcon from '../_shared/Layout/InlineIcon';
+import TextInput from '../_shared/Inputs/TextInput';
+import ColorPicker from '../_shared/Inputs/ColorPicker';
+import ColorItem from '../_shared/Inputs/ColorItem';
+import { createNotification } from '../../store/actions/uiActions';
+import { addCategoryAsync, setCategoriesStatus } from '../../store/actions/categoriesActions';
+import PropTypes from 'prop-types';
 
-import { ADD_START, ADD_FAILED, ADD_COMPLETE, DELETE_COMPLETE, FETCH_START } from '../../store/statusTypes';
-import { addCategoryAsync } from '../../store/actions/categoriesActions';
-import { FlexRow } from '../_shared/Layout';
-import Form from '../_shared/Layout/Form';
-
-export default function CategoryForm({ callback, initialCategoryName }) {
-    const { categoryStatus, categories } = useSelector(s => s.categories);
-    const { availableColors: colors } = useSelector(s => s.colors);
-    const { currentUserId } = useSelector(s => s.user);
+export default function CategoryForm({ callback, initialCategoryName = "" }) {
+    const { categoriesStatus, categories } = useSelector(s => s.categories);
+    const { colors, colorsStatus } = useSelector(s => s.colors);
+    const { userId } = useSelector(s => s.user);
     const dispatch = useDispatch();
 
-    const [availableColors, setAvailableColors] = useState(colors);
+    // Form fields
+    const categoryName = useTextInput(initialCategoryName, 1);
+    const [colorId, setColorId] = useState("");
+    const [colorError, setColorError] = useState(false);
 
-    const categoryName = useTextInput(1, 30, initialCategoryName);
-    const [categoryColor, setCategoryColor] = useState("");
+    const [availableColors, setAvailableColors] = useState([]);
 
+    // Update colors when item added
     useEffect(() => {
-        if (categoryStatus === ADD_COMPLETE) {
-            if (callback) {
-                callback(categoryName.value);
-                return;
-            }
+        setAvailableColors(colors.filter(c => c.available));
+    }, [colors])
 
-            // To ensure both inputs update simultaneously
-            // There's probably a better way to handle this
-            setAvailableColors(colors);
+    // On submit
+    useEffect(() => {
+        const setIdle = () => {
+            dispatch(setCategoriesStatus(IDLE));
+        }
+
+        if (categoriesStatus === ADD_COMPLETE) {
+            callback && callback();
+
             categoryName.reset();
-            categoryColor.reset();
-
+            setColorError(false);
+            setColorId("");
+            setIdle();
         }
-        else if (categoryStatus === ADD_FAILED) {
-            // notify user
-            console.log("Det gick inte att lägga till " + categoryName.name)
+        else if (categoriesStatus === ADD_FAILED) {
+            dispatch(createNotification("Det gick inte att lägga till kategorin"))
+            setIdle();
         }
-        else if (categoryStatus === DELETE_COMPLETE) {
-            setAvailableColors(colors);
-        }
-    }, [
-        categoryStatus,
-        colors,
-        callback,
-        categoryColor,
-        categoryName
-    ]);
+    }, [categoriesStatus, categoryName])
 
-    const onSubmit = (e) => {
-        e.preventDefault();
-
+    const onSubmit = () => {
         const nameError = categoryName.onChange(categoryName.value);
-        const colorError = categoryColor.onChange(categoryColor.value);
-        if (nameError || colorError) {
+
+        if (nameError) {
+            return;
+        }
+        else if (!colorId) {
+            setColorError(true);
             return;
         }
 
-        const availableColor = availableColors.find(c => c.id === categoryColor.value);
+        const availableColor = availableColors.find(c => c.id === colorId);
         const categoryNameExists = categories.find(c =>
             c.name.toUpperCase() === categoryName.value.toUpperCase()
         );
 
         if (!availableColor) {
             // notify user
-            console.log("Färgen är inte tillgänglig");
+            dispatch(createNotification("Färgen är inte tillgänglig"))
             return;
         }
         else if (categoryNameExists) {
             // notify user
-            console.log("Namnet används redan");
+            dispatch(createNotification("Kategorin finns redan"))
             return;
         }
 
         const addCategory = {
             name: categoryName.value,
             productCount: 0,
-            color: {
-                id: availableColor.id,
-                hex: availableColor.hex
-            }
+            colorId: availableColor.id,
+            colorHex: availableColor.hex,
         }
 
-        dispatch(addCategoryAsync(addCategory, currentUserId));
+        // const addCategory = {
+        //     name: categoryName.value,
+        //     productCount: 0,
+        //     color: {
+        //         id: availableColor.id,
+        //         hex: availableColor.hex
+        //     }
+        // }
+
+        dispatch(addCategoryAsync(userId, addCategory));
     }
 
-    const loading = categoryStatus === ADD_START || categoryStatus === FETCH_START;
+    const loading = categoriesStatus === ADD_START;
 
     return (
-        <Form onSubmit={onSubmit} isDisabled={loading}>
+        <Fragment>
+            {/* CATEGORY NAME */}
             <FlexRow>
-                <InlineIcon hasErrors={categoryName.error} icon={FaTag} />
-                <TextInput
-                    {...categoryName}
-                    placeholder="Vad heter kategorin?"
+                <InlineIcon
+                    icon={FaTag}
+                    isActive={!!categoryName.value}
+                    hasError={!!categoryName.error}
                 />
-                <InlineButton icon={FaPlus} />
-            </FlexRow>
-            <FlexRow>
-                <InlineIcon hasErrors={categoryColor.error || !availableColors.length} icon={FaPalette} />
-                <ColorPicker
-                    // shouldUpdate={categoryStatus === ADD_COMPLETE || categoryStatus === DELETE_COMPLETE}
-                    onSelect={(id) => setCategoryColor(id)}
-                    selectedId={categoryColor.value}
-                    items={availableColors}
+                <TextInput {...categoryName} placeholder="Vad heter kategorin?" />
+                <InlineButton
+                    onClick={onSubmit}
+                    icon={FaPlus}
+                    disabled={loading}
                 />
             </FlexRow>
-        </Form>
+
+            {/* COLOR PICKER */}
+            <FlexRow>
+                <InlineIcon
+                    hasError={colorError}
+                    icon={FaPalette}
+                />
+                <ColorPicker>
+                    {availableColors.map(c => {
+                        return (
+                            <ColorItem
+                                id={c.id}
+                                key={c.id}
+                                hex={c.hex}
+                                onClick={() => setColorId(c.id)}
+                                isActive={c.id === colorId}
+                            />
+                        )
+                    })}
+                </ColorPicker>
+            </FlexRow>
+        </Fragment>
     )
+}
+
+CategoryForm.propTypes = {
+    callback: PropTypes.func,
+    initialCategoryName: PropTypes.string
 }

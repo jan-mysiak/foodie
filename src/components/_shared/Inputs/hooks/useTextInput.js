@@ -1,12 +1,15 @@
 import { useState } from 'react';
 
-export default function useTextInput(min, max, pattern) {
-    const [value, setValue] = useState("");
+export default function useTextInput(initialValue = "", min, max, pattern) {
+    const [value, setValue] = useState(initialValue);
     const [error, setError] = useState("");
 
     const onChange = (newValue) => {
-        setError(validate(newValue));
+        const error = validate(newValue);
+        setError(error);
         setValue(newValue);
+
+        return error;
     }
 
     const validate = (newValue) => {

@@ -4,12 +4,12 @@ import styles from './Navigation.module.css';
 import { Link } from 'react-router-dom';
 
 export default function NavMenu(props) {
-    const { items, isActive, currentLocation } = props;
+    const { items, isActive, currentLocation, signOut } = props;
 
     const LogoutLink = () => (
-        <Link className={styles.logoutLink} to="/">
+        <li className={styles.logoutLink} onClick={signOut}>
             Logga ut
-        </Link>
+        </li>
     )
 
     const navLinks = Object.keys(items).map(n =>
@@ -31,6 +31,7 @@ export default function NavMenu(props) {
 NavMenu.propTypes = {
     items: PropTypes.object.isRequired,
     isActive: PropTypes.bool.isRequired,
-    currentLocation: PropTypes.string.isRequired
+    currentLocation: PropTypes.string.isRequired,
+    signOut: PropTypes.func.isRequired
 }
 

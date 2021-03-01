@@ -1,11 +1,12 @@
 export class Color {
-    constructor(id, hex) {
+    constructor(id, hex, available) {
         this.id = id;
         this.hex = hex;
+        this.available = available;
     }
-    toString() {
-        return this.id + ', ' + this.hex;
-    }
+    // toString() {
+    //     return this.id + ', ' + this.hex;
+    // }
 }
 
 export const colorConverter = {
@@ -18,6 +19,6 @@ export const colorConverter = {
     fromFirestore: function (snapshot) {
         const id = snapshot.id;
         const data = snapshot.data();
-        return new Color(id, data.hex);
+        return new Color(id, data.hex, data.available);
     }
 };

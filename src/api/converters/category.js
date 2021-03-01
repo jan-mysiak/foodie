@@ -12,9 +12,10 @@ export const categoryConverter = {
     toFirestore: function (category) {
         return {
             name: category.name,
+            productCount: category.productCount,
             color: {
-                id: category.color.id,
-                hex: category.color.hex
+                id: category.colorId,
+                hex: category.colorHex
             }
         };
     },

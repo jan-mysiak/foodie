@@ -8,10 +8,14 @@ import InlineIcon from '../Layout/InlineIcon';
 export default function Search(props) {
     return (
         <FlexRow>
-            <InlineIcon icon={FaSearch} isActive={props.value} />
+            <InlineIcon icon={FaSearch} isActive={!!props.value} />
             <TextInput {...props} />
         </FlexRow>
     )
+}
+
+Search.defaultProps = {
+    placeholder: "Sök.."
 }
 
 Search.propTypes = {

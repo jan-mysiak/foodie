@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './Layout.module.css';
+import PropTypes from 'prop-types';
 
 export default function FlexRow({ children }) {
     return (
@@ -7,4 +8,8 @@ export default function FlexRow({ children }) {
             {children}
         </div>
     )
+}
+
+FlexRow.propTypes = {
+    children: PropTypes.node.isRequired
 }

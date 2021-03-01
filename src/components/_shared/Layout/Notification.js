@@ -16,7 +16,7 @@ export default function Notification() {
             ref.current.style.display = "flex";
 
             // Handle notification types here if needed
-            ref.current.className = styles.error;
+            ref.current.className = styles.notificationError;
 
             // Fade out after a delay
             setTimeout(() => {
@@ -32,7 +32,7 @@ export default function Notification() {
 
     return (
         <div className={styles.notification} ref={ref}>
-            <FaExclamationCircle size="24" className={styles.icon} />
+            <FaExclamationCircle size="24" className={styles.notificationIcon} />
             {notificationMessage}
         </div>
     )

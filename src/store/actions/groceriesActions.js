@@ -9,10 +9,10 @@ export const setGroceriesStatus = (payload) => ({ type: "SET_GROCERIES_STATUS", 
 
 export const addGroceryAsync = (userId, grocery) => async dispatch => {
     dispatch(setGroceriesStatus(ADD_START));
-     
-    groceriesRef(userId)
+
+    firebase.firestore().collection("users").doc(userId).collection("groceries")
         // .withConverter
-        .set(grocery)
+        .add(grocery)
         .then(() => {
             dispatch(setGroceriesStatus(ADD_COMPLETE));
         })
@@ -25,7 +25,7 @@ export const addGroceryAsync = (userId, grocery) => async dispatch => {
 export const deleteGroceryAsync = (userId, groceryId) => async dispatch => {
     dispatch(setGroceriesStatus(DELETE_START));
 
-    groceriesRef(userId, groceryId)
+    firebase.firestore().collection("users").doc(userId).collection("groceries").doc(groceryId)
         .delete()
         .then(() => {
             dispatch(setGroceriesStatus(DELETE_COMPLETE));
@@ -33,8 +33,4 @@ export const deleteGroceryAsync = (userId, groceryId) => async dispatch => {
         .catch(err => {
             dispatch(setGroceriesStatus(DELETE_FAILED));
         })
-}
-
-function groceriesRef(userId, docId = "") {
-    return firebase.firestore().collection("users").doc(userId).collection("groceries").doc(docId);
 }

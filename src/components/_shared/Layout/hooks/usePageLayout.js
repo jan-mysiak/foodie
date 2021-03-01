@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setActionsHeight } from '../../../../store/actions/';
 
 export default function usePageLayout(searchHeight, formHeight) {
-    const { searchActive, formActive, actionsHeight } = useSelector(s => s.ui);
+    const { searchActive, formActive } = useSelector(s => s.ui);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -23,7 +23,6 @@ export default function usePageLayout(searchHeight, formHeight) {
     }, [searchActive, formActive, formHeight, searchHeight, dispatch]);
 
     return {
-        actionsHeight,
         searchActive,
         formActive,
     };

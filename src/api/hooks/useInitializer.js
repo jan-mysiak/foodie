@@ -54,16 +54,16 @@ export default function useInitializer() {
             categoryListener.listen(categoryConverter, ACTION_TYPES.categories, ["name", "desc"]);
         }
         if (!colorListener.isActive) {
-            colorListener.listen(colorConverter, ACTION_TYPES.colors, null, ["available", "==", true])
+            colorListener.listen(colorConverter, ACTION_TYPES.colors)
         }
-        // if (!productListener.isActive) {
-        //     productListener.listen(productConverter, ACTION_TYPES.products, ["name", "desc"]);
-        // }
-        // if (!groceryListener.isActive) {
-        //     groceryListener.listen(groceryConverter, ACTION_TYPES.groceries, ["product.name", "desc"]);
-        // }
+        if (!productListener.isActive) {
+            productListener.listen(productConverter, ACTION_TYPES.products, ["name", "desc"]);
+        }
+        if (!groceryListener.isActive) {
+            groceryListener.listen(groceryConverter, ACTION_TYPES.groceries, ["product.name", "desc"]);
+        }
 
-        // Unmount
+        // Cleanup
         return () => cancelListeners();
     }, [userId, productListener, groceryListener, categoryListener, colorListener]);
 

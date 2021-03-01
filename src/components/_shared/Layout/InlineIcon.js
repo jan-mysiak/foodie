@@ -28,7 +28,7 @@ export default function InlineIcon({ icon, isActive, hasError }) {
 
 InlineIcon.propTypes = {
     icon: PropTypes.func.isRequired,
-    isActive: PropTypes.string,
-    hasError: PropTypes.string
+    isActive: PropTypes.bool,
+    hasError: PropTypes.bool
 }
 
