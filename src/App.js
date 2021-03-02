@@ -1,4 +1,4 @@
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import useInitializer from "./api/hooks/useInitializer";
 import Navigation from "./components/Navigation/Navigation";
 import Routes from "./components/Routes";
@@ -11,10 +11,11 @@ function App() {
 
   return (
     <div className="app">
-      <BrowserRouter>
+      {/* <BrowserRouter basename={process.env.PUBLIC_URL}> */}
+      <HashRouter>
         <Navigation />
         <Routes />
-      </BrowserRouter>
+      </HashRouter>
 
       <Notification />
     </div>

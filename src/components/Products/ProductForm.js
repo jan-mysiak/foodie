@@ -13,7 +13,7 @@ import { createNotification, setActionsHeight } from '../../store/actions/uiActi
 import { ADD_COMPLETE, ADD_FAILED, ADD_START, IDLE } from '../../store/statusTypes';
 import { addProductAsync, setProductsStatus } from '../../store/actions/productsActions';
 
-export default function ProductForm({ callback, initialProductName = "" }) {
+export default function ProductForm({ callback, toggleHeader, initialProductName = "" }) {
     const { products, productsStatus } = useSelector(s => s.products);
     const { categories } = useSelector(s => s.categories);
     const { userId } = useSelector(s => s.user);
@@ -34,6 +34,7 @@ export default function ProductForm({ callback, initialProductName = "" }) {
             setIdle()
         }
         else if (productsStatus === ADD_COMPLETE) {
+            callback && callback();
             productName.reset();
             categoryName.reset();
             setIdle()
@@ -43,12 +44,14 @@ export default function ProductForm({ callback, initialProductName = "" }) {
     // Resize actions when changing forms to account for header
     useEffect(() => {
         if (formStep === 0) {
-            dispatch(setActionsHeight(11));
+            dispatch(setActionsHeight(toggleHeader ? 15 : 11));
+            toggleHeader && toggleHeader(true);
         }
         else if (formStep === 1) {
             dispatch(setActionsHeight(15));
+            toggleHeader && toggleHeader(false);
         }
-    }, [formStep, dispatch])
+    }, [formStep, dispatch, toggleHeader])
 
     const onSubmit = () => {
         const productError = productName.onChange(productName.value);
@@ -135,6 +138,8 @@ export default function ProductForm({ callback, initialProductName = "" }) {
 
 ProductForm.propTypes = {
     callback: PropTypes.func,
-    initialProductName: PropTypes.string
+    initialProductName: PropTypes.string,
+    // Don't do this..
+    toggleHeader: PropTypes.func
 }
 

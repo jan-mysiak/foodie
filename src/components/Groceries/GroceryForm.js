@@ -1,6 +1,6 @@
 import { useState, useEffect, Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ADD_START, FETCH_COMPLETE, FETCH_FAILED, IDLE } from '../../store/statusTypes';
+import { ADD_START, ADD_COMPLETE, ADD_FAILED, IDLE } from '../../store/statusTypes';
 import ProductForm from '../Products/ProductForm';
 import useTextInput from '../_shared/Inputs/hooks/useTextInput';
 import SuggestionInput from '../_shared/Inputs/SuggestionInput';
@@ -8,9 +8,8 @@ import { FlexRow, InlineButton, InlineIcon } from '../_shared/Layout';
 import ActionsHeader from '../_shared/Layout/ActionsHeader';
 import { FaShoppingBag, FaComment, FaPlus } from 'react-icons/fa';
 import { createNotification, setActionsHeight } from '../../store/actions/uiActions';
-import { addGroceryAsync } from '../../store/actions/groceriesActions';
+import { addGroceryAsync, setGroceriesStatus } from '../../store/actions/groceriesActions';
 import TextInput from '../_shared/Inputs/TextInput';
-import { setCategoriesStatus } from '../../store/actions/categoriesActions';
 
 export default function GroceryForm() {
     const { groceries, groceriesStatus } = useSelector(s => s.groceries);
@@ -22,6 +21,8 @@ export default function GroceryForm() {
     const description = useTextInput();
 
     const [formStep, setFormStep] = useState(0);
+    // Don't do this
+    const [headerVisible, toggleHeader] = useState(false);
 
     useEffect(() => {
         if (formStep === 0) {
@@ -34,14 +35,14 @@ export default function GroceryForm() {
 
     // After submit
     useEffect(() => {
-        const setIdle = () => dispatch(setCategoriesStatus(IDLE));
+        const setIdle = () => dispatch(setGroceriesStatus(IDLE));
 
-        if (groceriesStatus === FETCH_COMPLETE) {
+        if (groceriesStatus === ADD_COMPLETE) {
             productName.reset();
             description.reset();
             setIdle();
         }
-        else if (groceriesStatus === FETCH_FAILED) {
+        else if (groceriesStatus === ADD_FAILED) {
             dispatch(createNotification("Det gick inte att lägga till varan i inköpslistan"));
             setIdle();
         }
@@ -85,8 +86,6 @@ export default function GroceryForm() {
         dispatch(addGroceryAsync(userId, addGrocery));
     }
 
-
-
     return (
         <Fragment>
             {formStep === 0 &&
@@ -125,13 +124,16 @@ export default function GroceryForm() {
             {formStep === 1 &&
                 // PRODUCT FORM
                 <Fragment>
-                    <ActionsHeader
-                        content={<p>Lägg till <b>{productName.value}</b></p>}
-                        onBack={() => setFormStep(0)}
-                    />
+                    {headerVisible &&
+                        <ActionsHeader
+                            content={<p>Lägg till <b>{productName.value}</b></p>}
+                            onBack={() => setFormStep(0)}
+                        />
+                    }
                     <ProductForm
                         initialProductName={productName.value}
                         callback={() => setFormStep(0)}
+                        toggleHeader={toggleHeader}
                     />
                 </Fragment>
             }

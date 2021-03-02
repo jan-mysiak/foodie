@@ -5,6 +5,8 @@ export default function useTextInput(initialValue = "", min, max, pattern) {
     const [error, setError] = useState("");
 
     const onChange = (newValue) => {
+        newValue = newValue.length === 1 ? newValue.toUpperCase() : newValue;
+
         const error = validate(newValue);
         setError(error);
         setValue(newValue);

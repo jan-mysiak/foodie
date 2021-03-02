@@ -78,21 +78,21 @@ export default function CategoryForm({ callback, initialCategoryName = "" }) {
             return;
         }
 
-        const addCategory = {
-            name: categoryName.value,
-            productCount: 0,
-            colorId: availableColor.id,
-            colorHex: availableColor.hex,
-        }
-
         // const addCategory = {
         //     name: categoryName.value,
         //     productCount: 0,
-        //     color: {
-        //         id: availableColor.id,
-        //         hex: availableColor.hex
-        //     }
+        //     colorId: availableColor.id,
+        //     colorHex: availableColor.hex,
         // }
+
+        const addCategory = {
+            name: categoryName.value,
+            productCount: 0,
+            color: {
+                id: availableColor.id,
+                hex: availableColor.hex
+            }
+        }
 
         dispatch(addCategoryAsync(userId, addCategory));
     }

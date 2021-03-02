@@ -1,6 +1,5 @@
 import firebase from 'firebase/app';
 import "firebase/firestore";
-import { categoryConverter } from '../../api/converters/category';
 import {
     ADD_START, ADD_FAILED, ADD_COMPLETE,
     DELETE_START, DELETE_COMPLETE, DELETE_FAILED
@@ -17,10 +16,10 @@ export const addCategoryAsync = (userId, category) => async dispatch => {
     const batch = firebase.firestore().batch();
     const userRef = firebase.firestore().collection("users").doc(userId);
 
-    const categoriesRef = userRef.collection("categories").withConverter(categoryConverter).doc();
+    const categoriesRef = userRef.collection("categories").doc();
     batch.set(categoriesRef, category);
 
-    const colorsRef = userRef.collection("colors").doc(category.colorId);
+    const colorsRef = userRef.collection("colors").doc(category.color.id);
     batch.update(colorsRef, { available: false });
 
     dispatch(setCategoriesStatus(ADD_START));

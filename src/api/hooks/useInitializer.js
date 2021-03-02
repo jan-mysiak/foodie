@@ -64,7 +64,7 @@ export default function useInitializer() {
         }
         if (!groceryListener.isActive) {
             groceryListener.listen(
-                groceryConverter, ACTION_TYPES.groceries, [["product.category.name", "desc"], ["product.name", "desc"]]
+                groceryConverter, ACTION_TYPES.groceries, [["product.name", "desc"]]
             );
         }
 
