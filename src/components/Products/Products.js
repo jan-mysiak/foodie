@@ -29,7 +29,7 @@ export default function Products() {
                         <SwipeableListItem
                             key={item.id}
                             item={item}
-                            onLeftSwipe={() => dispatch(deleteProductAsync(userId, item.id))}
+                            onLeftSwipe={() => dispatch(deleteProductAsync(userId, item))}
                         />
                     )
                 })}

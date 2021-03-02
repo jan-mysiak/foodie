@@ -39,7 +39,7 @@ export default function ProductForm({ callback, toggleHeader, initialProductName
             categoryName.reset();
             setIdle()
         }
-    }, [productsStatus, productName, categoryName, dispatch])
+    }, [productsStatus, productName, categoryName, dispatch, callback])
 
     // Resize actions when changing forms to account for header
     useEffect(() => {
@@ -98,6 +98,7 @@ export default function ProductForm({ callback, toggleHeader, initialProductName
                         <InlineIcon
                             icon={FaShoppingBag}
                             isActive={!!productName.value}
+                            hasError={!!productName.error}
                         />
                         <TextInput
                             {...productName}
@@ -111,7 +112,10 @@ export default function ProductForm({ callback, toggleHeader, initialProductName
                     </FlexRow>
 
                     <FlexRow>
-                        <InlineIcon icon={FaTag} isActive={!!categoryName.value} />
+                        <InlineIcon icon={FaTag}
+                            isActive={!!categoryName.value}
+                            hasError={!!categoryName.error}
+                        />
                         <SuggestionInput
                             {...categoryName}
                             placeholder="Välj kategori.."
